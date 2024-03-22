@@ -8,12 +8,12 @@ This was always the intended goal of my [Property Sheet Demo project](https://gi
 First of all, I'm not going to cover the basics of setting up property sheets and displaying them; that's what the first project is for. This readme will only cover invoking them through a .cpl control panel applet. This project uses the same dialog resources and image resources as the property sheet demo, with all the same IDs, it's just called different. I've only tested compiling as 64bit; I'm not sure about WOW64 applets.
 
 ## Project config
-You'll need to create a Standard DLL project for this, then manually set the build output path to use a .cpl extension. The resources and modPropsheet all come from out Property Sheet Demo project; they're just added in as is, the minor modifications described below.
+You'll need to create a Standard DLL project for this, then manually set the build output path to use a .cpl extension. The resources and modPropsheet all come from out Property Sheet Demo project; they're just added in as is, the minor modifications described below. When compiled, all you need to do is place the .cpl file in System32, no need for further registration. Note that you can store it elsewhere and register it, but that's not covered here.
 
 
 ## The basic setup: CPlApplet entry point
 
-When Windows find a .cpl file in System32 (or one is registered in another location), it looks for an exported function named `CPlApplet`, if it finds it, it's handled as the standard applet type we're using here. This is done in twinBASIC by creating a Standard Dll project, and labeling the function with the `[DllExport]` attribute. This is the core of the applet:
+When Windows finds a .cpl file in System32 (or one is registered in another location), it looks for an exported function named `CPlApplet`, if it finds it, it's handled as the standard applet type we're using here. This is done in twinBASIC by creating a Standard Dll project, and labeling the function with the `[DllExport]` attribute. This is the core of the applet:
 
 ```vba
 [DllExport]
