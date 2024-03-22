@@ -92,7 +92,7 @@ Private Function Init() As Long
 End Function
 ```
 
-Note that you wouldn't hard-core the names in a regular app. The APIs here dynamically load a manifest so it can be activated and deactivated at will. When it's active, if it specifies ComCtl6, all calls will use it. The manifest stored in our CPL is "#1", so 1 is pointing to it. `hCtx` is module level, so that we can activate it around our property sheet call:
+Note that you wouldn't hard-core the names in a regular app. The APIs here dynamically load a manifest so it can be activated and deactivated at will-- note that here too we need to manually specify the CPL's module handle so it loads our manifest, not the parent exe which doesn't have one. When it's active, if it specifies ComCtl6, all calls will use it. The manifest stored in our CPL is "#1", so 1 is pointing to it. `hCtx` is module level, so that we can activate it around our property sheet call:
 
 ```vba
 Private Function OnDoubleClick(hWnd As LongPtr, lParam1 As LongPtr, lParam2 As LongPtr) As Long
