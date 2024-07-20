@@ -10,6 +10,10 @@ First of all, I'm not going to cover the basics of setting up property sheets an
 ## Project config
 You'll need to create a Standard DLL project for this, then manually set the build output path to use a .cpl extension. The resources and modPropsheet all come from out Property Sheet Demo project; they're just added in as is, the minor modifications described below. When compiled, all you need to do is place the .cpl file in System32, no need for further registration. Note that you can store it elsewhere and register it, but that's not covered here.
 
+## Why use Dialog resources instead of Forms?
+
+People's first question about this project is usually why it goes through all the effort to create and use a Dialog resource (RT_DIALOG) in a language with its own Form engine and designer. The answer is: here, you can't use a regular form. For standard control panel applets like this, DllMain or main is never called; only the applet entry point. This means that the hidden initialization code for the forms engine never runs, and subsequently if you attempt to load a form, it will crash. I've put in a feature request for tB to support allowing us to call the initialization code ourselves so projects like this and some other niche project types *can* use regular forms, but right now dialog resources are the easiest GUI option for the rare case where a DLL is only used through an alternate entry point.
+
 
 ## The basic setup: CPlApplet entry point
 
